@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		try {
 		IUsuariosDAO pDAO = new UsuariosDAOImpl();
 		UsuarioDTO user= pDAO.read( request.getParameter("correo"),request.getParameter("password"));
 		System.out.println("usuarioEncontrdo"+user);
@@ -63,6 +63,10 @@ public class LoginController extends HttpServlet {
 		}
 		else {
 			System.out.println("No es admin");
+			response.sendRedirect("error.jsp");
+		}
+		}catch (Exception e) {
+			System.out.println("Error Null Pointer Excetion Login");
 			response.sendRedirect("error.jsp");
 		}
 		
